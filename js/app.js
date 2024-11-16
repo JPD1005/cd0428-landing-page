@@ -22,6 +22,17 @@
  * Define Global Variables
  * 
 */
+const theDom = [];
+
+for (let i = 0; i < 3; i++) {
+    let x = i + 1;
+    let sektor = document.querySelector("#section" + x);
+    theDom.push(sektor);
+}
+
+const nav = document.querySelector("#navbar__list");
+
+const navItems = [];
 
 
 /**
@@ -40,11 +51,26 @@
 
 // build the nav
 
+for (let x = 0; x < theDom.length; x++) {
+    const newLi = document.createElement("li");
+    const sectionChild = theDom[x].querySelector(".landing__container");
+    newLi.textContent = sectionChild.querySelector("h2").textContent;
+    newLi.classList.add("menu__link");
+    nav.appendChild(newLi);
+    navItems.push(newLi);
+}
+
 
 // Add class 'active' to section when near top of viewport
 
 
 // Scroll to anchor ID using scrollTO event
+
+navItems.forEach((section) => {
+    section.addEventListener("click", (event) => {
+        console.log("Clicked!");
+    })
+});
 
 
 /**
