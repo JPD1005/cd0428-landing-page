@@ -34,6 +34,8 @@ const nav = document.querySelector("#navbar__list");
 
 const navItems = [];
 
+let activeSection = document.querySelector("#section1");
+
 
 /**
  * End Global Variables
@@ -41,6 +43,11 @@ const navItems = [];
  * 
 */
 
+function setActive(element) {
+    element.classList.add("active");
+    activeSection.classList.remove("active");
+    activeSection = element;
+}
 
 
 /**
@@ -66,12 +73,6 @@ for (let x = 0; x < theDom.length; x++) {
 
 // Scroll to anchor ID using scrollTO event
 
-navItems.forEach((section) => {
-    section.addEventListener("click", (event) => {
-        console.log("Clicked!");
-    })
-});
-
 
 /**
  * End Main Functions
@@ -82,6 +83,18 @@ navItems.forEach((section) => {
 // Build menu 
 
 // Scroll to section on link click
+
+
+
+for (let y = 0; y < theDom.length; y++) {
+    navItems[y].addEventListener("click", (event) => {
+        theDom[y].scrollIntoView( {
+            behavior: "smooth"
+        });
+        setActive(theDom[y]);
+        console.log("Clicked!");
+    })
+};
 
 // Set sections as active
 
