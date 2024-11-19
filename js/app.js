@@ -24,11 +24,7 @@
 */
 const theDom = [];
 
-for (let i = 0; i < 3; i++) {
-    let x = i + 1;
-    let sektor = document.querySelector("#section" + x);
-    theDom.push(sektor);
-}
+const sections = document.querySelectorAll("section");
 
 const nav = document.querySelector("#navbar__list");
 
@@ -44,9 +40,18 @@ let activeSection = document.querySelector("#section1");
 */
 
 function setActive(element) {
-    element.classList.add("active");
     activeSection.classList.remove("active");
+    element.classList.add("active");
     activeSection = element;
+}
+
+function isSectionNearTop(element) {
+    const getTop = element.getBoundingClientRect().top;
+    if ((getTop <= 100) && (getTop >= -50)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -56,17 +61,30 @@ function setActive(element) {
  * 
 */
 
+for (let i = 0; i < sections.length; i++) {
+    let x = i + 1;
+    let sektor = document.querySelector("#section" + x);
+    theDom.push(sektor);
+}
+
 // build the nav
 
 for (let x = 0; x < theDom.length; x++) {
     const newLi = document.createElement("li");
-    const sectionChild = theDom[x].querySelector(".landing__container");
-    newLi.textContent = sectionChild.querySelector("h2").textContent;
+    newLi.textContent = theDom[x].dataset.nav;
     newLi.classList.add("menu__link");
     nav.appendChild(newLi);
     navItems.push(newLi);
 }
 
+theDom.forEach(section => {
+    window.addEventListener("scroll", () => {
+        if (isSectionNearTop(section)) {
+            setActive(section);
+            console.log("Scrolled!");
+        }
+    })
+})
 
 // Add class 'active' to section when near top of viewport
 
@@ -86,16 +104,13 @@ for (let x = 0; x < theDom.length; x++) {
 
 
 
-for (let y = 0; y < theDom.length; y++) {
+for (let y = 0; y < navItems.length; y++) {
     navItems[y].addEventListener("click", (event) => {
+        console.log("Clicked!")
+        event.preventDefault();
         theDom[y].scrollIntoView( {
             behavior: "smooth"
         });
         setActive(theDom[y]);
-        console.log("Clicked!");
     })
 };
-
-// Set sections as active
-
-
