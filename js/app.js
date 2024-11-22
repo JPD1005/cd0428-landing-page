@@ -47,7 +47,7 @@ function setActive(element) {
 
 function isSectionNearTop(element) {
     const getTop = element.getBoundingClientRect().top;
-    if ((getTop <= 100) && (getTop >= -50)) {
+    if ((getTop <= 80) && (getTop >= -80)) {
         return true;
     } else {
         return false;
