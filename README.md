@@ -1,9 +1,17 @@
 # Landing Page Project
 
-## Instructions
+This project incomporates elements from HTML, CSS, and JavaScript to create a landing page that is responsive to different screen sizes, and actively changes as you scroll through the page. It also scrolls for you by clicking the sections on the navigation bar on top.
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Getting Started
 
-To get started, open `js/app.js` and start building out the app's functionality
+To run the code, simply double-click the `index.html` file inside the main folder, and it should display a preview automatically inside your default browser.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+### Or alternatively:
+
+* Right Click `index.html`
+* Select "Open With"
+* Choose your preferred Internet Browser
+
+## Credits
+
+Credits to [Udacity](https://github.com/udacity/cd0428-landing-page) for providing all the HTML and CSS code for this project.
