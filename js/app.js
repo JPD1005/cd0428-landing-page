@@ -22,7 +22,6 @@
  * Define Global Variables
  * 
 */
-const theDom = [];
 
 const sections = document.querySelectorAll("section");
 
@@ -32,19 +31,20 @@ const navItems = [];
 
 let activeSection = document.querySelector("#section1");
 
-
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
 
+// Helper function sets the chosen section as the active one and removes previous active section
 function setActive(element) {
     activeSection.classList.remove("active");
     element.classList.add("active");
     activeSection = element;
 }
 
+// Helper function checks if any of the sections are close to the top of viewport
 function isSectionNearTop(element) {
     const getTop = element.getBoundingClientRect().top;
     if ((getTop <= 80) && (getTop >= -80)) {
@@ -54,43 +54,24 @@ function isSectionNearTop(element) {
     }
 }
 
-
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
 
-for (let i = 0; i < sections.length; i++) {
-    let x = i + 1;
-    let sektor = document.querySelector("#section" + x);
-    theDom.push(sektor);
-}
-
-// build the nav
-
-for (let x = 0; x < theDom.length; x++) {
+// For loop creates li element for each section, gives them a class and html text, and pushes them to nav bar
+for (let x = 0; x < sections.length; x++) {
     const newLi = document.createElement("li");
-    newLi.textContent = theDom[x].dataset.nav;
+    newLi.innerHTML = sections[x].dataset.nav;
     newLi.classList.add("menu__link");
     nav.appendChild(newLi);
     navItems.push(newLi);
 }
 
-theDom.forEach(section => {
-    window.addEventListener("scroll", () => {
-        if (isSectionNearTop(section)) {
-            setActive(section);
-            console.log("Scrolled!");
-        }
-    })
-})
-
-// Add class 'active' to section when near top of viewport
-
+// Loop that adds event listener to each section for when they reach top of viewport through scrolling, and sets them active
 
 // Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
@@ -98,19 +79,22 @@ theDom.forEach(section => {
  * 
 */
 
-// Build menu 
-
-// Scroll to section on link click
-
-
-
+// For loop add event listener for each nav button. Once they are clicked, their respective section is made active
 for (let y = 0; y < navItems.length; y++) {
     navItems[y].addEventListener("click", (event) => {
         console.log("Clicked!")
         event.preventDefault();
-        theDom[y].scrollIntoView( {
+        sections[y].scrollIntoView( {
             behavior: "smooth"
         });
         setActive(theDom[y]);
     })
 };
+
+sections.forEach(section => {
+    window.addEventListener("scroll", () => {
+        if (isSectionNearTop(section)) {
+            setActive(section);
+        }
+    })
+})
