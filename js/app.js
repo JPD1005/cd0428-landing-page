@@ -31,6 +31,8 @@ const navItems = [];
 
 let activeSection = document.querySelector("#section1");
 
+let activeNav = null;
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -42,6 +44,13 @@ function setActive(element) {
     activeSection.classList.remove("active");
     element.classList.add("active");
     activeSection = element;
+}
+
+// Helper function who behaves exactly as the one above, but with the navbar elements instead
+function setActiveNav(element) {
+    activeNav.classList.remove("active");
+    element.classList.add("active");
+    activeNav = element;
 }
 
 // Helper function checks if any of the sections are close to the top of viewport
@@ -67,6 +76,10 @@ for (let x = 0; x < sections.length; x++) {
     newLi.classList.add("menu__link");
     nav.appendChild(newLi);
     navItems.push(newLi);
+    if (x === 0) {
+        navItems[x].classList.add("active");
+        activeNav = navItems[x];
+    }
 }
 
 // Loop that adds event listener to each section for when they reach top of viewport through scrolling, and sets them active
@@ -82,19 +95,27 @@ for (let x = 0; x < sections.length; x++) {
 // For loop add event listener for each nav button. Once they are clicked, their respective section is made active
 for (let y = 0; y < navItems.length; y++) {
     navItems[y].addEventListener("click", (event) => {
-        console.log("Clicked!")
         event.preventDefault();
         sections[y].scrollIntoView( {
             behavior: "smooth"
+            
         });
-        setActive(theDom[y]);
+        setActive(sections[y]);
+        setActiveNav(navItems[y]);
     })
 };
 
+/** 
+ForEach loop adds event listener that listens for any sections reaching the top of viewport. 
+If so, it makes section and its navbar counterpart active
+*/
 sections.forEach(section => {
     window.addEventListener("scroll", () => {
         if (isSectionNearTop(section)) {
             setActive(section);
+            const navID = [...sections].indexOf(section);
+            console.log(navID);
+            setActiveNav(navItems[navID]);
         }
     })
 })
